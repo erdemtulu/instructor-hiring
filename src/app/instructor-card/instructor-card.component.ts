@@ -15,5 +15,7 @@ export class InstructorCardComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  // gotoInstructor() {
+  //   console.log('sad');
+  // }
 }

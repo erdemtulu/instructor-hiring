@@ -1,3 +1,38 @@
-<p>
-  instructor-detail works!
-</p>
+<div *ngIf="instructor$ | async as instructor">
+  <nz-card [nzExtra]="extraTemplate">
+    <div style="margin-left: 40%; margin-top: 2%">
+      <nz-avatar nzSrc={{instructor.img_url}} style="width: 150px;height: 150px;"></nz-avatar>
+    </div>
+    <div style="margin-left: 41%">
+      <pre><font size=5>{{instructor.name}} {{instructor.surname}}</font>
+    {{instructor.companyName}}</pre>
+    </div>
+    <span style="margin-left: 40%">
+      <div style="display: inline-block">
+        <i nz-icon nzType="star" nzTheme="outline"></i>
+        {{instructor.rating}}
+        <br/>
+        <small><small> Rating ({{instructor.reviews}} Reviews)</small></small>
+      </div>
+      <div style="display: inline-block; margin-left: 10px">
+        {{instructor.deliviries}}
+        <br/>
+        <small><small> Deliviries</small></small>
+      </div>
+      <div style="display: inline-block; margin-left: 10px">
+        ${{instructor.startRate}}
+        <br/>
+        <small><small>Start Rate</small></small>
+      </div>
+    </span>
+    <br/><br/>
+    <button *ngIf="!createdOffer$" style="margin-left: 42%" nz-button nzType="primary" (click)="sendOffer()">Send Offer</button>
+  </nz-card>
+</div>
+
+<ng-template #extraTemplate>
+  <div *ngIf="createdOffer$">
+    <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
+    Offer Sent
+  </div>
+</ng-template>

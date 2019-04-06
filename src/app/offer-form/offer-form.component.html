@@ -1,0 +1,88 @@
+<div mat-dialog-content *ngIf="instructor$ | async as instructor" style="width:500px;height:500px;">
+  <nz-card>
+    <div style="margin-left: 35%; margin-top: 2%">
+      <nz-avatar nzSrc={{instructor.img_url}} style="width: 150px;height: 150px;"></nz-avatar>
+    </div>
+    <div style="margin-left: 36%">
+      <pre><font size="5">{{instructor.name}} {{instructor.surname}}</font>
+      {{instructor.companyName}}</pre>
+    </div>
+  </nz-card>
+  <br/>
+  <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <span style="margin-top:5px;">
+      <div style="display:inline-block; width: 35%">
+        Daily Rate
+        <br/>
+        <font size="2" color="gray">Propose new Daily Rate</font>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzSize]="'default'" [nzSuffix]="'$'">
+              <input type="text" formControlName="dailyRateOffer" nz-input placeholder={{instructor.dailyRate}} />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div style="display:inline-block; width: 10%"></div>
+      <div style="display:inline-block; width: 35%">
+        Travel & Expenses
+        <br/>
+        <font size="2" color="gray">Propose new T&E</font>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzSize]="'default'" [nzSuffix]="'$'">
+              <input type="text" formControlName="teOffer" nz-input />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </span>
+    <br/>
+    <br/>
+    <div>
+      Contact e-mail
+      <br/>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSize]="'large'">
+            <input type="text" formControlName="contact_email" id="contact_email" nz-input />
+            <nz-form-explain *ngIf="validateForm.get('contact_email')?.dirty && validateForm.get('contact_email')?.errors">
+              The input is not valid E-mail!
+            </nz-form-explain>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <br/>
+    <div>
+      Language of Delivery
+      <br/>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSize]="'large'">
+            <input type="text" formControlName="deliveryLanguage" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <br/> Additional comments to Buyer Name's<br/>
+    <nz-form-item>
+      <nz-form-control>
+        <textarea rows="4" formControlName="comments" nz-input></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div>
+      <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button (click)="onNoClick()">No Thanks</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary">Ok</button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</div>

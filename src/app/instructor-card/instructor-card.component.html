@@ -1,8 +1,8 @@
 <!-- <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle={{instructor.name}} nzDescription="This is the description"></nz-card-meta> -->
-<nz-layout style="background: white">
+<nz-layout style="background: white" routerLink="/instructor/{{instructor.id}}" >
   <nz-layout style="background: white;">
     <nz-sider style="background: white; " [nzWidth]=100>
-      <nz-avatar nzSrc="/assets/image.png" style="width: 80px;height: 80px; "></nz-avatar>
+      <nz-avatar nzSrc={{instructor.img_url}} style="width: 80px;height: 80px; "></nz-avatar>
     </nz-sider>
     <nz-layout style="background: white;">
       <h4 style="margin-left: 5px">{{instructor.name}} {{instructor.surname}}</h4>

@@ -1,10 +1,15 @@
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { InstructorDetailComponent } from './instructor-detail/instructor-detail.component';
 export const APP_ROUTES = [
     {
         path: '',
         component: HomeComponent,
+    },
+    {
+        path: 'instructor/:id',
+        component: InstructorDetailComponent,
     },
 ];
 @NgModule({
