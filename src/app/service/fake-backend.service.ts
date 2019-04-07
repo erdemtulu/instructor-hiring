@@ -10,12 +10,12 @@ export class FakeBackendService {
     // mock data
     private instructors = [{
         id: '1',
-        name: 'Erdem',
-        surname: 'Tulu',
+        name: 'Albert',
+        surname: 'Einstein',
         companyName: 'Siemens',
-        rating: 9.1,
+        rating: 9.0,
         deliviries: 6,
-        startRate: 100,
+        startRate: 90,
         dailyRate: 120,
         country: 'Turkey',
         languages: ['Turkish', 'English'],
@@ -24,12 +24,12 @@ export class FakeBackendService {
         img_url: '/assets/image.png'
     }, {
         id: '2',
-        name: 'Erdem',
-        surname: 'Tulu',
+        name: 'Isaac',
+        surname: 'Newton',
         companyName: 'Siemens',
         rating: 9.1,
         deliviries: 6,
-        startRate: 100,
+        startRate: 80,
         dailyRate: 120,
         country: 'Turkey',
         languages: ['Turkish', 'English'],
@@ -38,12 +38,12 @@ export class FakeBackendService {
         img_url: '/assets/image1.png'
     }, {
         id: '3',
-        name: 'Erdem',
-        surname: 'Tulu',
+        name: 'Stephen',
+        surname: 'Hawking',
         companyName: 'Siemens',
-        rating: 9.1,
+        rating: 9.2,
         deliviries: 6,
-        startRate: 100,
+        startRate: 70,
         dailyRate: 120,
         country: 'Turkey',
         languages: ['Turkish', 'English'],
@@ -52,12 +52,12 @@ export class FakeBackendService {
         img_url: '/assets/mask.png'
     }, {
         id: '4',
-        name: 'Erdem',
-        surname: 'Tulu',
+        name: 'Carl',
+        surname: 'Sagan',
         companyName: 'Siemens',
-        rating: 9.1,
+        rating: 9.3,
         deliviries: 6,
-        startRate: 100,
+        startRate: 110,
         dailyRate: 120,
         country: 'Turkey',
         languages: ['Turkish', 'English'],
@@ -66,12 +66,12 @@ export class FakeBackendService {
         img_url: '/assets/image.png'
     }, {
         id: '5',
-        name: 'Erdem',
-        surname: 'Tulu',
+        name: 'Jean Paul',
+        surname: 'Sartre',
         companyName: 'Siemens',
-        rating: 9.1,
+        rating: 9.4,
         deliviries: 6,
-        startRate: 100,
+        startRate: 120,
         dailyRate: 120,
         country: 'Turkey',
         languages: ['Turkish', 'English'],
@@ -82,9 +82,26 @@ export class FakeBackendService {
 
     private offers = [];
     private idCount = 1;
+
+    sortFunctions = {
+        az: {
+            asc: (a, b) => a.surname.localeCompare(b.surname),
+            desc: (a, b) => b.surname.localeCompare(a.surname),
+        },
+        startRate: {
+            asc: (a, b) => a.startRate - b.startRate,
+            desc: (a, b) => b.startRate - a.startRate
+        },
+        rating: {
+            asc: (a, b) => a.rating - b.rating,
+            desc: (a, b) => b.rating - a.rating
+        }
+    };
+
     constructor(private http: HttpClient) { }
-    public getAllInstructors(): Observable<Instructor[]> {
+    public getAllInstructors(by: string, d: string): Observable<Instructor[]> {
         // faking a backend call for now
+        this.instructors.sort(this.sortFunctions[by][d]);
         return Observable.create((fakeCall) => {
             setTimeout(() => {
                 fakeCall.next([...this.instructors]);
@@ -116,7 +133,13 @@ export class FakeBackendService {
         });
     }
 
-    // public getInstructor(id: string): Observable<Instructor> {
-    //     return
+    // public getOfferedInstructorIds(): Observable<string[]> {
+    //     // faking a backend call for now
+    //     return Observable.create((fakeCall) => {
+    //         setTimeout(() => {
+    //             fakeCall.next([...this.offers]);
+    //             fakeCall.complete();
+    //         }, Math.floor(Math.random() * 200));
+    //     });
     // }
 }

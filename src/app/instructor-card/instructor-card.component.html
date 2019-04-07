@@ -1,5 +1,4 @@
-<!-- <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle={{instructor.name}} nzDescription="This is the description"></nz-card-meta> -->
-<nz-layout style="background: white" routerLink="/instructor/{{instructor.id}}" >
+<nz-layout style="background: white" routerLink="/instructor/{{instructor.id}}">
   <nz-layout style="background: white;">
     <nz-sider style="background: white; " [nzWidth]=100>
       <nz-avatar nzSrc={{instructor.img_url}} style="width: 80px;height: 80px; "></nz-avatar>
@@ -19,12 +18,12 @@
           </div>
           <div style="display: inline-block; margin-left: 10px">
             {{instructor.deliviries}}
-            <br/> 
+            <br/>
             <small><small> Deliviries</small></small>
           </div>
           <div style="display: inline-block; margin-left: 10px">
             ${{instructor.startRate}}
-            <br/> 
+            <br/>
             <small><small>Start Rate</small></small>
           </div>
         </span>
@@ -47,7 +46,10 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-
-<ng-template #avatarTemplate>
-  <nz-avatar nzSrc="/assets/image.png" style="width: 100px;height: 100px;"></nz-avatar>
-</ng-template>
+<button *ngIf="!createdOffer$" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">Send
+  Offer
+</button>
+<div *ngIf="createdOffer$">
+  <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
+  Offer Sent
+</div>

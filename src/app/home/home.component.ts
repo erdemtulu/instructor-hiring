@@ -3,6 +3,7 @@ import { Instructor } from '../models/instructor';
 import { FakeBackendService } from '../service/fake-backend.service';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
+import { Offer } from '../models/offer';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,6 +13,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private fakeBackendService: FakeBackendService) { }
 
+
+
   gridStyle = {
     width: '25%',
     // textAlign: 'center'
@@ -19,11 +22,17 @@ export class HomeComponent implements OnInit {
   instructors$: Observable<Instructor[]>;
   searchText$ = new Subject<string>();
   searchResults$: Observable<Instructor[]>;
+  selectedSort = 'azasc';
   search(searchTerm: string) {
     this.searchText$.next(searchTerm);
   }
+  sortBy(by: string, d: string) {
+    this.instructors$ = this.fakeBackendService.getAllInstructors(by, d);
+    this.selectedSort = by + d;
+  }
   ngOnInit() {
-    this.instructors$ = this.fakeBackendService.getAllInstructors();
+    // this.instructors$ = this.fakeBackendService.getAllInstructors((a, b) => b.startRate - a.startRate);
+    this.sortBy('az', 'asc');
     this.searchResults$ = this.searchText$.pipe(
       distinctUntilChanged(),
       switchMap(searchTerm =>

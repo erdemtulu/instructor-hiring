@@ -3,12 +3,32 @@
     <input style="background-color:transparent; font-size: 16px; color: rgb(10, 10, 10); border:none; width: 150px; height: 35px;"
       placeholder="Search..." (keyup)="search($event.target.value)" />
     <div>
-      <div *ngFor="let searchResult of searchResults$ | async let i=index">
+      <div *ngFor="let searchResult of searchResults$ | async let i=index" routerLink="/instructor/{{searchResult.id}}">
         <div style="color: rgb(150, 150, 150);" *ngIf="i < 10">
           {{searchResult.name}} {{searchResult.surname}}
         </div>
       </div>
     </div>
+  </div>
+  <font style="position: absolute; top: 16px; right: 415px;">A-Z</font>
+  <div style="position: absolute; top: 7px; right: 400px;">
+    <i nz-icon nzType="caret-up" nzTheme="outline" (click)="selectedSort==='azasc' ? null : sortBy('az','asc')" [ngStyle]="{'color': selectedSort==='azasc' ? 'green' : null} "></i>
+    <br/>
+    <i nz-icon nzType="caret-down" nzTheme="outline" (click)="selectedSort==='azdesc' ? null : sortBy('az','desc')" [ngStyle]="{'color': selectedSort==='azdesc' ? 'green' : null} "></i>
+  </div>
+  <font style="position: absolute; top: 16px; right: 325px;">Start Rate</font>
+  <div style="position: absolute; top: 7px; right: 310px;">
+    <i nz-icon nzType="caret-up" nzTheme="outline" (click)="selectedSort==='startRateasc' ? null : sortBy('startRate','asc')"
+      [ngStyle]="{'color': selectedSort==='startRateasc' ? 'green' : null} "></i>
+    <br/>
+    <i nz-icon nzType="caret-down" nzTheme="outline" (click)="selectedSort==='startRatedesc' ? null : sortBy('startRate','desc')"
+      [ngStyle]="{'color': selectedSort==='startRatedesc' ? 'green' : null} "></i>
+  </div>
+  <font style="position: absolute; top: 16px; right: 265px;">Rating</font>
+  <div style="position: absolute; top: 7px; right: 250px;">
+    <i nz-icon nzType="caret-up" nzTheme="outline" (click)="selectedSort==='ratingasc' ? null : sortBy('rating','asc')" [ngStyle]="{'color': selectedSort==='ratingasc' ? 'green' : null} "></i>
+    <br/>
+    <i nz-icon nzType="caret-down" nzTheme="outline" (click)="selectedSort==='ratingdesc' ? null : sortBy('rating','desc')" [ngStyle]="{'color': selectedSort==='ratingdesc' ? 'green' : null} "></i>
   </div>
   <div *ngFor="let instructor of instructors$ | async">
     <div nz-card-grid [ngStyle]="gridStyle">

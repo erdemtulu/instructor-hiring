@@ -23,11 +23,11 @@ export class OfferFormComponent implements OnInit {
   ngOnInit() {
     this.instructor$ = this.fakeBackendService.getInstructor(this.data.instructor.id);
     this.validateForm = this.fb.group({
-      dailyRateOffer: [null, [Validators.required]],
-      teOffer: [null, [Validators.required]],
-      contact_email: [null, [Validators.required, EmailValidator]],
+      dailyRateOffer: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      teOffer: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      contact_email: [null, [Validators.email, Validators.required, EmailValidator]],
       deliveryLanguage: [null, [Validators.required]],
-      comments: [null, []],
+      comments: [null, [Validators.maxLength(120)]],
     });
   }
   onNoClick(): void {
@@ -41,7 +41,7 @@ export class OfferFormComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    if (this.validateForm.valid) { this.dialogRef.close({...this.validateForm.value, instructor_id: this.data.instructor.id} as Offer); }
+    if (this.validateForm.valid) { this.dialogRef.close({ ...this.validateForm.value, instructor_id: this.data.instructor.id } as Offer); }
 
   }
 }
