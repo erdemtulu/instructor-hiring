@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subject, of, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { FakeBackendService } from '../../service/fake-backend.service';
@@ -10,7 +10,7 @@ import { OfferStoreSelectors } from '../../root-store/offer-feature-store';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private fakeBackendService: FakeBackendService, private store: Store<{}>) { }
 
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   searchResults$: Observable<Instructor[]>;
   selectedSort = 'azasc';
   offeredInstructorIds: string[] = [];
+  storeSubscription: Subscription;
   search(searchTerm: string) {
     this.searchText$.next(searchTerm);
   }
@@ -41,9 +42,13 @@ export class HomeComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         searchTerm.length !== 0 ? this.instructors$.pipe(switchMap(instructors => [instructors.filter(i => i.name.startsWith(searchTerm))])) : of([]))
     );
-    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+    this.storeSubscription = this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.offeredInstructorIds = res;
     });
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
 }

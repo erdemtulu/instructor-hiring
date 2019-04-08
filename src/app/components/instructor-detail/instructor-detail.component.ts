@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
@@ -15,7 +15,7 @@ import { Offer } from '../../models/offer';
   templateUrl: './instructor-detail.component.html',
   styleUrls: ['./instructor-detail.component.css']
 })
-export class InstructorDetailComponent implements OnInit {
+export class InstructorDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,6 +29,7 @@ export class InstructorDetailComponent implements OnInit {
   instructor$: Observable<Instructor>;
   isOffered = false;
   instructor_id: string;
+  storeSubscription: Subscription;
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(
@@ -37,9 +38,13 @@ export class InstructorDetailComponent implements OnInit {
         this.instructor$ = this.fakeBackendService.getInstructor(this.instructor_id);
       });
 
-    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+    this.storeSubscription = this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.isOffered = res.includes(this.instructor_id);
     });
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
   sendOffer() {
@@ -51,7 +56,7 @@ export class InstructorDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: Offer) => {
 
       if (result) {
-        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result}));
+        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result }));
       }
     });
   }
