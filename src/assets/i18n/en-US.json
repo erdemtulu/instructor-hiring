@@ -1,0 +1,15 @@
+{
+    "START_RATE": "Start Rate",
+    "DAILY_RATE": "Daily Rate",
+    "RATING": "Rating",
+    "SEARCH": "Search",
+    "SEND_OFFER": "Send Offer",
+    "OFFER_SENT": "Offer Sent",
+    "REVIEWS": "Reviews",
+    "DELIVERIES": "Deliveries",
+    "PROPOSE_DAILY_RATE": "Propose New Daily Rate",
+    "INPUT_NOT_VALID": "Input is not valid",
+    "TRAVEL_EXPENSES": "Travel & Expenses",
+    "DELIVERY_LANG": "Language of Delivery",
+    "ADDITIONAL_COMMENTS": "Additional comments to Buyer Name's"
+}

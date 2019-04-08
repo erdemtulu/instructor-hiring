@@ -4,8 +4,9 @@ import { Store } from '@ngrx/store';
 import { Instructor } from '../../models/instructor';
 import { Offer } from '../../models/offer';
 import { OfferStoreActions } from '../../root-store/offer-feature-store';
-import { FakeBackendService } from '../../service/fake-backend.service';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageBusService } from '../../service/language-bus.service';
 
 @Component({
   selector: 'app-instructor-card',
@@ -14,7 +15,13 @@ import { OfferFormComponent } from '../offer-form/offer-form.component';
 })
 export class InstructorCardComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private fakeBackendService: FakeBackendService, private store: Store<{}>) { }
+  constructor(public dialog: MatDialog,
+    private languageBusService: LanguageBusService,
+    private store: Store<{}>,
+    public translate: TranslateService) {
+
+    // translate.use(getSelectedLanguage(translate));
+  }
 
   @Input()
   private instructor: Instructor;
@@ -23,7 +30,7 @@ export class InstructorCardComponent implements OnInit {
   private isOffered: Boolean = false;
 
   ngOnInit() {
-
+    this.languageBusService.observe('lang').subscribe(r => this.translate.use(r));
   }
 
   sendOffer() {
@@ -34,7 +41,7 @@ export class InstructorCardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: Offer) => {
       if (result) {
-        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result}));
+        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result }));
         this.isOffered = true;
       }
     });

@@ -12,23 +12,23 @@
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <span style="margin-top:5px;">
       <div style="display:inline-block; width: 35%">
-        Daily Rate
+        {{'DAILY_RATE' | translate }}
         <br/>
-        <font size="2" color="gray">Propose new Daily Rate</font>
+        <font size="2" color="gray">{{'PROPOSE_DAILY_RATE' | translate }}</font>
         <nz-form-item>
           <nz-form-control>
             <nz-input-group [nzSize]="'default'" [nzSuffix]="'$'">
               <input type="text" formControlName="dailyRateOffer" nz-input placeholder={{instructor.dailyRate}} />
             </nz-input-group>
             <nz-form-explain *ngIf="validateForm.get('dailyRateOffer')?.dirty && validateForm.get('dailyRateOffer')?.errors">
-              The input is not valid!
+              {{'INPUT_NOT_VALID' | translate }}
             </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div style="display:inline-block; width: 10%"></div>
       <div style="display:inline-block; width: 35%">
-        Travel & Expenses
+        {{'TRAVEL_EXPENSES' | translate }}
         <br/>
         <font size="2" color="gray">Propose new T&E</font>
         <nz-form-item>
@@ -37,7 +37,7 @@
               <input type="text" formControlName="teOffer" nz-input />
             </nz-input-group>
             <nz-form-explain *ngIf="validateForm.get('teOffer')?.dirty && validateForm.get('teOffer')?.errors">
-              The input is not valid!
+              {{'INPUT_NOT_VALID' | translate }}
             </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
@@ -53,7 +53,7 @@
           <nz-input-group [nzSize]="'large'">
             <input type="text" formControlName="contact_email" id="contact_email" nz-input />
             <nz-form-explain *ngIf="validateForm.get('contact_email')?.dirty && validateForm.get('contact_email')?.errors">
-              The input is not valid E-mail!
+              {{'INPUT_NOT_VALID' | translate }} E-mail!
             </nz-form-explain>
           </nz-input-group>
         </nz-form-control>
@@ -61,7 +61,7 @@
     </div>
     <br/>
     <div>
-      Language of Delivery
+      {{'DELIVERY_LANG' | translate }}
       <br/>
       <nz-form-item>
         <nz-form-control>
@@ -71,7 +71,7 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <br/> Additional comments to Buyer Name's<br/>
+    <br/> {{'ADDITIONAL_COMMENTS' | translate }}<br/>
     <nz-form-item>
       <nz-form-control>
         <textarea rows="4" formControlName="comments" nz-input></textarea>

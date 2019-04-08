@@ -1,0 +1,15 @@
+{
+    "START_RATE": "Ücret",
+    "DAILY_RATE": "Günlük Ücret",
+    "RATING": "Puan",
+    "SEARCH": "Ara",
+    "SEND_OFFER": "Teklif Gönder",
+    "OFFER_SENT": "Teklif Gönderildi",
+    "REVIEWS": "Değerlendirme",
+    "DELIVERIES": "Teslim Adedi",
+    "PROPOSE_DAILY_RATE": "Günlük Ücret Teklif et",
+    "INPUT_NOT_VALID":"Hatalı girdi",
+    "TRAVEL_EXPENSES": "Yol Ücreti",
+    "DELIVERY_LANG": "Teslim Dili",
+    "ADDITIONAL_COMMENTS": "Alıcının yorumları"
+}

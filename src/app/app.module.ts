@@ -5,15 +5,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FakeBackendService } from './service/fake-backend.service';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatSelectModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RootStoreModule } from './root-store';
 import { HomeComponent } from './components/home/home.component';
 import { InstructorCardComponent } from './components/instructor-card/instructor-card.component';
 import { InstructorDetailComponent } from './components/instructor-detail/instructor-detail.component';
 import { OfferFormComponent } from './components/offer-form/offer-form.component';
+
+
+// for translate
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { createTranslateLoader } from '../config/translate';
+import { LanguageBusService } from './service/language-bus.service';
 
 @NgModule({
   declarations: [
@@ -32,9 +38,17 @@ import { OfferFormComponent } from './components/offer-form/offer-form.component
     BrowserAnimationsModule,
     HttpClientModule,
     MatDialogModule,
-    RootStoreModule
+    MatSelectModule,
+    RootStoreModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [FakeBackendService],
+  providers: [FakeBackendService, LanguageBusService],
   bootstrap: [AppComponent],
   entryComponents: [
     OfferFormComponent,

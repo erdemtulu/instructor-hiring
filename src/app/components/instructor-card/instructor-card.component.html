@@ -14,17 +14,17 @@
             <i nz-icon nzType="star" nzTheme="outline"></i>
             {{instructor.rating}}
             <br/>
-            <small><small> Rating ({{instructor.reviews}} Reviews)</small></small>
+            <small><small> {{'RATING' | translate }} ({{instructor.reviews}} {{'REVIEWS' | translate }})</small></small>
           </div>
           <div style="display: inline-block; margin-left: 10px">
             {{instructor.deliviries}}
             <br/>
-            <small><small> Deliviries</small></small>
+            <small><small> {{'DELIVERIES' | translate }}</small></small>
           </div>
           <div style="display: inline-block; margin-left: 10px">
             ${{instructor.startRate}}
             <br/>
-            <small><small>Start Rate</small></small>
+            <small><small>{{'START_RATE' | translate }}</small></small>
           </div>
         </span>
       </nz-content>
@@ -46,10 +46,10 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-<button *ngIf="!isOffered" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">Send
-  Offer
+<button *ngIf="!isOffered" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">
+  {{'SEND_OFFER' | translate }}
 </button>
 <div *ngIf="isOffered" style="width:100px; margin-left:100px; margin-top: 5px;">
   <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
-  Offer Sent
+  {{'OFFER_SENT' | translate }}
 </div>

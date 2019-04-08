@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { FakeBackendService } from '../../service/fake-backend.service';
 import { Instructor } from '../../models/instructor';
 import { OfferStoreSelectors } from '../../root-store/offer-feature-store';
+import { LanguageBusService } from '../../service/language-bus.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,7 +14,9 @@ import { OfferStoreSelectors } from '../../root-store/offer-feature-store';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private fakeBackendService: FakeBackendService, private store: Store<{}>) { }
+  constructor(private fakeBackendService: FakeBackendService, private store: Store<{}>,
+    private languageBusService: LanguageBusService,
+    public translate: TranslateService) { }
 
 
 
@@ -25,6 +29,7 @@ export class HomeComponent implements OnInit {
   searchResults$: Observable<Instructor[]>;
   selectedSort = 'azasc';
   offeredInstructorIds: string[] = [];
+  lang: string;
   search(searchTerm: string) {
     this.searchText$.next(searchTerm);
   }
@@ -44,6 +49,8 @@ export class HomeComponent implements OnInit {
     this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.offeredInstructorIds = res;
     });
+
+    this.languageBusService.observe('lang').subscribe(r => this.translate.use(r));
   }
 
 }

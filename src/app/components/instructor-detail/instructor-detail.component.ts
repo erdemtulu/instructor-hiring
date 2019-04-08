@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
@@ -10,6 +8,8 @@ import { FakeBackendService } from '../../service/fake-backend.service';
 import { Instructor } from '../../models/instructor';
 import { OfferStoreSelectors, OfferStoreActions } from '../../root-store/offer-feature-store';
 import { Offer } from '../../models/offer';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageBusService } from '../../service/language-bus.service';
 @Component({
   selector: 'app-instructor-detail',
   templateUrl: './instructor-detail.component.html',
@@ -20,11 +20,12 @@ export class InstructorDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private fakeBackendService: FakeBackendService,
-    public overlay: Overlay,
     public viewContainerRef: ViewContainerRef,
     public dialog: MatDialog,
-    private store: Store<{}>
-  ) { }
+    private store: Store<{}>,
+    public translate: TranslateService,
+    private languageBusService: LanguageBusService
+  ) {  }
 
   instructor$: Observable<Instructor>;
   isOffered = false;
@@ -40,6 +41,8 @@ export class InstructorDetailComponent implements OnInit {
     this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.isOffered = res.includes(this.instructor_id);
     });
+
+    this.languageBusService.observe('lang').subscribe(r => this.translate.use(r));
   }
 
   sendOffer() {
@@ -51,7 +54,7 @@ export class InstructorDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: Offer) => {
 
       if (result) {
-        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result}));
+        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result }));
       }
     });
   }

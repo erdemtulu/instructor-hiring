@@ -16,7 +16,7 @@
     <br/>
     <i nz-icon nzType="caret-down" nzTheme="outline" (click)="selectedSort==='azdesc' ? null : sortBy('az','desc')" [ngStyle]="{'color': selectedSort==='azdesc' ? 'green' : null} "></i>
   </div>
-  <font style="position: absolute; top: 16px; right: 325px;">Start Rate</font>
+  <font style="position: absolute; top: 16px; right: 325px;">{{'START_RATE' | translate }}</font>
   <div style="position: absolute; top: 7px; right: 310px;">
     <i nz-icon nzType="caret-up" nzTheme="outline" (click)="selectedSort==='startRateasc' ? null : sortBy('startRate','asc')"
       [ngStyle]="{'color': selectedSort==='startRateasc' ? 'green' : null} "></i>
@@ -24,7 +24,7 @@
     <i nz-icon nzType="caret-down" nzTheme="outline" (click)="selectedSort==='startRatedesc' ? null : sortBy('startRate','desc')"
       [ngStyle]="{'color': selectedSort==='startRatedesc' ? 'green' : null} "></i>
   </div>
-  <font style="position: absolute; top: 16px; right: 265px;">Rating</font>
+  <font style="position: absolute; top: 16px; right: 265px;">{{'RATING' | translate }}</font>
   <div style="position: absolute; top: 7px; right: 250px;">
     <i nz-icon nzType="caret-up" nzTheme="outline" (click)="selectedSort==='ratingasc' ? null : sortBy('rating','asc')" [ngStyle]="{'color': selectedSort==='ratingasc' ? 'green' : null} "></i>
     <br/>
