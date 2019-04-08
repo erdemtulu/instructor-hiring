@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
@@ -15,7 +15,7 @@ import { LanguageBusService } from '../../service/language-bus.service';
   templateUrl: './instructor-detail.component.html',
   styleUrls: ['./instructor-detail.component.css']
 })
-export class InstructorDetailComponent implements OnInit {
+export class InstructorDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,11 +25,12 @@ export class InstructorDetailComponent implements OnInit {
     private store: Store<{}>,
     public translate: TranslateService,
     private languageBusService: LanguageBusService
-  ) {  }
+  ) { }
 
   instructor$: Observable<Instructor>;
   isOffered = false;
   instructor_id: string;
+  storeSubscription: Subscription;
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(
@@ -38,11 +39,15 @@ export class InstructorDetailComponent implements OnInit {
         this.instructor$ = this.fakeBackendService.getInstructor(this.instructor_id);
       });
 
-    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+    this.storeSubscription = this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.isOffered = res.includes(this.instructor_id);
     });
 
     this.languageBusService.observe('lang').subscribe(r => this.translate.use(r));
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
   sendOffer() {

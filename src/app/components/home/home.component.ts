@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subject, of, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { FakeBackendService } from '../../service/fake-backend.service';
@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private fakeBackendService: FakeBackendService, private store: Store<{}>,
     private languageBusService: LanguageBusService,
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   selectedSort = 'azasc';
   offeredInstructorIds: string[] = [];
   lang: string;
+  storeSubscription: Subscription;
   search(searchTerm: string) {
     this.searchText$.next(searchTerm);
   }
@@ -46,11 +47,15 @@ export class HomeComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         searchTerm.length !== 0 ? this.instructors$.pipe(switchMap(instructors => [instructors.filter(i => i.name.startsWith(searchTerm))])) : of([]))
     );
-    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+    this.storeSubscription = this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
       this.offeredInstructorIds = res;
     });
 
     this.languageBusService.observe('lang').subscribe(r => this.translate.use(r));
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
 }
