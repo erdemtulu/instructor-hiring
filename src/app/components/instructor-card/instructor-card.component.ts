@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Instructor } from '../models/instructor';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { OfferFormComponent } from '../offer-form/offer-form.component';
-import { Offer } from '../models/offer';
-import { Observable } from 'rxjs';
-import { FakeBackendService } from '../service/fake-backend.service';
 import { Store } from '@ngrx/store';
-import { OfferStoreActions } from '../root-store';
+import { Instructor } from '../../models/instructor';
+import { Offer } from '../../models/offer';
+import { OfferStoreActions } from '../../root-store/offer-feature-store';
+import { FakeBackendService } from '../../service/fake-backend.service';
+import { OfferFormComponent } from '../offer-form/offer-form.component';
 
 @Component({
   selector: 'app-instructor-card',
@@ -23,7 +22,6 @@ export class InstructorCardComponent implements OnInit {
   @Input()
   private isOffered: Boolean = false;
 
-  createdOffer$: Observable<Offer>;
   ngOnInit() {
 
   }

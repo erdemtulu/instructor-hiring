@@ -3,17 +3,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { InstructorCardComponent } from './instructor-card/instructor-card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FakeBackendService } from './service/fake-backend.service';
-import { InstructorDetailComponent } from './instructor-detail/instructor-detail.component';
-import { OfferFormComponent } from './offer-form/offer-form.component';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RootStoreModule } from './root-store';
+import { HomeComponent } from './components/home/home.component';
+import { InstructorCardComponent } from './components/instructor-card/instructor-card.component';
+import { InstructorDetailComponent } from './components/instructor-detail/instructor-detail.component';
+import { OfferFormComponent } from './components/offer-form/offer-form.component';
 
 @NgModule({
   declarations: [

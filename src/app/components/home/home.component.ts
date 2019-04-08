@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Instructor } from '../models/instructor';
-import { FakeBackendService } from '../service/fake-backend.service';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
-import { Offer } from '../models/offer';
 import { Store } from '@ngrx/store';
-import { OfferStoreSelectors } from '../root-store';
+import { FakeBackendService } from '../../service/fake-backend.service';
+import { Instructor } from '../../models/instructor';
+import { OfferStoreSelectors } from '../../root-store/offer-feature-store';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

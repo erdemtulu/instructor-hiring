@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FakeBackendService } from '../service/fake-backend.service';
 import { Observable } from 'rxjs';
-import { Instructor } from '../models/instructor';
-import { Offer } from '../models/offer';
 import { FormGroup, FormBuilder, Validators, EmailValidator } from '@angular/forms';
+import { FakeBackendService } from '../../service/fake-backend.service';
+import { Instructor } from '../../models/instructor';
+import { Offer } from '../../models/offer';
 @Component({
   selector: 'app-offer-form',
   templateUrl: './offer-form.component.html',
