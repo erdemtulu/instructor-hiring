@@ -4,6 +4,8 @@ import { FakeBackendService } from '../service/fake-backend.service';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
 import { Offer } from '../models/offer';
+import { Store } from '@ngrx/store';
+import { OfferStoreSelectors } from '../root-store';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +13,7 @@ import { Offer } from '../models/offer';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private fakeBackendService: FakeBackendService) { }
+  constructor(private fakeBackendService: FakeBackendService, private store: Store<{}>) { }
 
 
 
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   searchText$ = new Subject<string>();
   searchResults$: Observable<Instructor[]>;
   selectedSort = 'azasc';
+  offeredInstructorIds: string[] = [];
   search(searchTerm: string) {
     this.searchText$.next(searchTerm);
   }
@@ -39,6 +42,9 @@ export class HomeComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         searchTerm.length !== 0 ? this.instructors$.pipe(switchMap(instructors => [instructors.filter(i => i.name.startsWith(searchTerm))])) : of([]))
     );
+    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+      this.offeredInstructorIds = res;
+    });
   }
 
 }

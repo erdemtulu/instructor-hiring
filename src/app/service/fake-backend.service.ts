@@ -80,7 +80,18 @@ export class FakeBackendService {
         img_url: '/assets/image1.png'
     }];
 
-    private offers = [];
+    private offers: Offer[] = [
+        // comment out below to start with a existing offer
+        //     {
+        //     comments: '22',
+        //     contact_email: 'ss@ss',
+        //     dailyRateOffer: 22,
+        //     deliveryLanguage: '22',
+        //     id: '1',
+        //     instructor_id: '1',
+        //     teOffer: 22
+        // }
+    ];
     private idCount = 1;
 
     sortFunctions = {
@@ -133,13 +144,13 @@ export class FakeBackendService {
         });
     }
 
-    // public getOfferedInstructorIds(): Observable<string[]> {
-    //     // faking a backend call for now
-    //     return Observable.create((fakeCall) => {
-    //         setTimeout(() => {
-    //             fakeCall.next([...this.offers]);
-    //             fakeCall.complete();
-    //         }, Math.floor(Math.random() * 200));
-    //     });
-    // }
+    public getOfferedInstructorIds(): Observable<string[]> {
+        // faking a backend call for now
+        return Observable.create((fakeCall) => {
+            setTimeout(() => {
+                fakeCall.next([...this.offers.map(offer => offer.instructor_id)]);
+                fakeCall.complete();
+            }, Math.floor(Math.random() * 200));
+        });
+    }
 }

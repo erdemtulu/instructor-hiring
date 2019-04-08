@@ -8,6 +8,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
 import { MatDialog } from '@angular/material';
 import { Offer } from '../models/offer';
+import { Store } from '@ngrx/store';
+import { OfferStoreActions, OfferStoreSelectors } from '../root-store';
 @Component({
   selector: 'app-instructor-detail',
   templateUrl: './instructor-detail.component.html',
@@ -20,11 +22,12 @@ export class InstructorDetailComponent implements OnInit {
     private fakeBackendService: FakeBackendService,
     public overlay: Overlay,
     public viewContainerRef: ViewContainerRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store<{}>
   ) { }
 
   instructor$: Observable<Instructor>;
-  createdOffer$: Observable<Offer>;
+  isOffered = false;
   instructor_id: string;
   ngOnInit() {
 
@@ -34,6 +37,9 @@ export class InstructorDetailComponent implements OnInit {
         this.instructor$ = this.fakeBackendService.getInstructor(this.instructor_id);
       });
 
+    this.store.select(OfferStoreSelectors.selectOfferStoreOfferedInstructorIds).subscribe(res => {
+      this.isOffered = res.includes(this.instructor_id);
+    });
   }
 
   sendOffer() {
@@ -43,8 +49,10 @@ export class InstructorDetailComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result: Offer) => {
-      console.log(result);
-      if (result) { this.createdOffer$ = this.fakeBackendService.createOffer(result); }
+
+      if (result) {
+        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result}));
+      }
     });
   }
 }

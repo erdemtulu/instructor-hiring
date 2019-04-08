@@ -46,10 +46,10 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-<button *ngIf="!createdOffer$" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">Send
+<button *ngIf="!isOffered" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">Send
   Offer
 </button>
-<div *ngIf="createdOffer$">
+<div *ngIf="isOffered" style="width:100px; margin-left:100px; margin-top: 5px;">
   <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
   Offer Sent
 </div>

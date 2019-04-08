@@ -5,6 +5,8 @@ import { OfferFormComponent } from '../offer-form/offer-form.component';
 import { Offer } from '../models/offer';
 import { Observable } from 'rxjs';
 import { FakeBackendService } from '../service/fake-backend.service';
+import { Store } from '@ngrx/store';
+import { OfferStoreActions } from '../root-store';
 
 @Component({
   selector: 'app-instructor-card',
@@ -13,10 +15,13 @@ import { FakeBackendService } from '../service/fake-backend.service';
 })
 export class InstructorCardComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private fakeBackendService: FakeBackendService) { }
+  constructor(public dialog: MatDialog, private fakeBackendService: FakeBackendService, private store: Store<{}>) { }
 
   @Input()
   private instructor: Instructor;
+
+  @Input()
+  private isOffered: Boolean = false;
 
   createdOffer$: Observable<Offer>;
   ngOnInit() {
@@ -30,11 +35,10 @@ export class InstructorCardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result: Offer) => {
-      // console.log(result);
-      if (result) { this.createdOffer$ = this.fakeBackendService.createOffer(result); }
+      if (result) {
+        this.store.dispatch(new OfferStoreActions.AddOffer({ offer: result}));
+        this.isOffered = true;
+      }
     });
   }
-  // gotoInstructor() {
-  //   console.log('sad');
-  // }
 }

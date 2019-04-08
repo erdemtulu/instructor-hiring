@@ -13,6 +13,7 @@ import { InstructorDetailComponent } from './instructor-detail/instructor-detail
 import { OfferFormComponent } from './offer-form/offer-form.component';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RootStoreModule } from './root-store';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     MatDialogModule,
+    RootStoreModule
   ],
   providers: [FakeBackendService],
   bootstrap: [AppComponent],

@@ -32,7 +32,7 @@
   </div>
   <div *ngFor="let instructor of instructors$ | async">
     <div nz-card-grid [ngStyle]="gridStyle">
-      <app-instructor-card [instructor]="instructor"></app-instructor-card>
+      <app-instructor-card [instructor]="instructor" [isOffered]= "offeredInstructorIds.includes(instructor.id)" ></app-instructor-card>
     </div>
   </div>
 </nz-card>

@@ -26,12 +26,12 @@
       </div>
     </span>
     <br/><br/>
-    <button *ngIf="!createdOffer$" style="margin-left: 42%" nz-button nzType="primary" (click)="sendOffer()">Send Offer</button>
+    <button *ngIf="!isOffered" style="margin-left: 42%" nz-button nzType="primary" (click)="sendOffer()">Send Offer</button>
   </nz-card>
 </div>
 
 <ng-template #extraTemplate>
-  <div *ngIf="createdOffer$">
+  <div *ngIf="isOffered">
     <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
     Offer Sent
   </div>
