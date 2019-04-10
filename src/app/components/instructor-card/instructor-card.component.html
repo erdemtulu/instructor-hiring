@@ -46,10 +46,12 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-<button *ngIf="!isOffered" (click)="sendOffer()" nz-button nzType="primary" style="width:100px; margin-left:100px; margin-top: 5px;">
-  {{'SEND_OFFER' | translate }}
-</button>
-<div *ngIf="isOffered" style="width:100px; margin-left:100px; margin-top: 5px;">
+<div *ngIf="!isOffered" style="width:150px; margin-left:100px; margin-top: 5px;">
+  <button (click)="sendOffer()" nz-button nzType="primary">
+    {{'SEND_OFFER' | translate }}
+  </button>
+</div>
+<div *ngIf="isOffered" style="width:150px; margin-left:100px; margin-top: 5px;">
   <i nz-icon nzType="check-square" nzTheme="fill" style="color:green"></i>
   {{'OFFER_SENT' | translate }}
 </div>
